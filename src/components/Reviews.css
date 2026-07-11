@@ -1,0 +1,155 @@
+.home-media-stack {
+  display: grid;
+  gap: 28px;
+}
+.home-media-stack > .video-card {
+  width: 100%;
+  aspect-ratio: 16/7;
+}
+.home-posts-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+.home-posts-grid .instagram-media {
+  height: 330px !important;
+}
+.google-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 22px;
+  align-items: start;
+}
+.google-map {
+  position: sticky;
+  top: 105px;
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.google-map iframe {
+  width: 100%;
+  height: 520px;
+  border: 0;
+  display: block;
+  filter: saturate(0.7) contrast(1.05);
+}
+.google-map > a {
+  height: 58px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+}
+.google-map > a svg:last-child {
+  margin-left: auto;
+  width: 16px;
+}
+.google-reviews {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px;
+}
+.rating-summary {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.rating-summary > strong {
+  font: 900 68px/0.8 var(--display);
+}
+.rating-summary span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.stars {
+  display: flex;
+  gap: 3px;
+  color: #fbbc04;
+}
+.stars svg {
+  width: 17px;
+}
+.review-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+.google-review {
+  padding: 18px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: 0.2s;
+}
+.google-review:hover {
+  border-color: var(--accent);
+  transform: translateX(3px);
+}
+.google-review > div {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 900;
+}
+.google-review strong,
+.google-review small {
+  display: block;
+}
+.google-review strong {
+  font-size: 12px;
+}
+.google-review small {
+  color: var(--muted);
+  font-size: 9px;
+  margin-top: 3px;
+}
+.google-review p {
+  margin: 13px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .google-layout {
+    grid-template-columns: 1fr;
+  }
+  .google-map {
+    position: static;
+  }
+  .home-posts-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .home-media-stack > .video-card {
+    aspect-ratio: 16/9;
+  }
+}
+@media (max-width: 600px) {
+  .home-posts-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-posts-grid .instagram-media {
+    height: 390px !important;
+  }
+  .google-map iframe {
+    height: 370px;
+  }
+  .google-reviews {
+    padding: 15px;
+  }
+}

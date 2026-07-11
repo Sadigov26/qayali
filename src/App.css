@@ -162,6 +162,8 @@ header nav a.active:after {
   filter: blur(180px);
   opacity: 0.08;
   right: -100px;
+  pointer-events: none;
+  z-index: 0;
 }
 .hero-grid {
   display: grid;

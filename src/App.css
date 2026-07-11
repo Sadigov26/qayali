@@ -955,15 +955,17 @@ footer {
 @media (max-width: 900px) {
   header {
     height: 68px;
+    gap: 12px;
   }
   .header-cta {
     display: none;
-
+  }
+  .theme-toggle {
+    margin-left: auto;
   }
   .menu {
     display: block;
-    
-    margin-left: auto;
+    margin-left: 10px;
   }
   header nav {
     display: none;

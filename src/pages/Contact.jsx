@@ -1,4 +1,4 @@
-import { MapPin, Phone, MessageCircle, Star, ExternalLink } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Star, ExternalLink, Quote } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube, FaGoogle } from "react-icons/fa6";
 import { Heading, PageHero } from "../components/UI";
 import { social } from "../data/media";
@@ -107,59 +107,43 @@ export default function Contact() {
         <div className="container">
           <Heading
             eyebrow="GOOGLE MAPS"
-            title="MÜŞTƏRİLƏR NƏ DEYİR?"
+            title="ÜNVANIMIZ"
             text={`${googleReviews.rating} reytinq · ${googleReviews.totalReviews} rəy`}
           />
-          <div className="google-layout">
-            <div className="google-map">
-              <iframe
-                title="Qayalı Sport xəritəsi"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3!2d49.6768183!3d40.5713327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403091300f82f297%3A0x3f5e9c5faa1eef9a!2sQayal%C4%B1%20Sport!5e0!3m2!1saz!2saz!4v1"
-                loading="lazy"
-                allowFullScreen
-              />
-              <a href={googleReviews.mapsUrl} target="_blank" rel="noreferrer">
-                <FaGoogle /> Google Maps-da aç <ExternalLink />
-              </a>
-            </div>
-            <div className="google-reviews">
-              <div className="rating-summary">
-                <strong>{googleReviews.rating}</strong>
-                <div>
-                  <div className="stars">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star
-                        key={star}
-                        fill={star <= 4 ? "currentColor" : "none"}
-                      />
-                    ))}
-                  </div>
-                  <span>{googleReviews.totalReviews} Google rəyi</span>
-                </div>
-              </div>
-              <div className="review-list">
-                {googleReviews.reviews.map((review) => (
-                  <a
-                    href={googleReviews.mapsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="google-review"
-                    key={review.author}
-                  >
-                    <div>
-                      <span className="avatar">{review.author.charAt(0)}</span>
-                      <div>
-                        <strong>{review.author}</strong>
-                        <small>
-                          {review.localGuide ? "Local Guide · " : ""}
-                          {review.time}
-                        </small>
-                      </div>
-                    </div>
-                    <p>“{review.text}”</p>
-                  </a>
-                ))}
-              </div>
+          <div className="google-map">
+            <iframe
+              title="Qayalı Sport xəritəsi"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1518.7534288009388!2d49.6768183!3d40.5713327!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403091300f82f297%3A0x3f5e9c5faa1eef9a!2sQayal%C4%B1%20Sport!5e0!3m2!1saz!2saz!4v1720000000000"
+              loading="lazy"
+              allowFullScreen
+            />
+            <a href={googleReviews.mapsUrl} target="_blank" rel="noreferrer">
+              <FaGoogle /> Google Maps-da aç <ExternalLink />
+            </a>
+          </div>
+
+          <div className="google-reviews-heading">
+            <Star fill="currentColor" />
+            <span>Müştərilər nə deyir?</span>
+          </div>
+          <div className="comments-marquee">
+            <div className="comments-track">
+              {[...googleReviews.reviews, ...googleReviews.reviews].map((review, index) => (
+                <a
+                  href={googleReviews.mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="comment-card"
+                  key={`${review.author}-${index}`}
+                >
+                  <Quote />
+                  <p>“{review.text}”</p>
+                  <span>
+                    <Star fill="currentColor" /> {review.author}
+                    {review.localGuide ? " · Local Guide" : ""}
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
         </div>

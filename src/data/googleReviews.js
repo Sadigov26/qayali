@@ -2,7 +2,7 @@ export const googleReviews = {
   placeId: "ChIJl_KCDzCRMEARmu8eql-cXj8",
   rating: 4.3,
   totalReviews: 15,
-mapsUrl: "https://maps.app.goo.gl/44dJza2s5fP97xmq6",
+  mapsUrl: "https://maps.app.goo.gl/44dJza2s5fP97xmq6",
   reviews: [
     ["Ferid Rustemli", "3 il əvvəl", "Çox yaxşı", false],
     ["Kamral Gasimov", "6 ay əvvəl", "Bir Nömrəli Qayalı Sport", true],

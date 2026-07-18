@@ -1,5 +1,88 @@
-import { CalendarDays, MapPin, Phone, Truck, MessageCircle } from "lucide-react";
+import {
+  CalendarDays,
+  MapPin,
+  MessageCircle,
+  Phone,
+  Truck,
+} from "lucide-react";
+import SEO from "../components/SEO";
 import { PageHero } from "../components/UI";
 import { whatsappNumber } from "../data/products";
 
-export default function Delivery() { const message = encodeURIComponent("Salam, Qayalı Sport saytından müraciət edirəm. Çatdırılma haqqında məlumat almaq istəyirəm."); return <><PageHero index="04" eyebrow="ÇATDIRILMA" title="SİFARİŞİN YOLDADIR" text="Sifarişlərinizi müəyyən edilmiş günlərdə ünvanınıza çatdırırıq."/><section className="section container delivery-grid"><article><Truck/><span>01</span><h2>ÇATDIRILMA GÜNLƏRİ</h2><p>Çatdırılma həftənin 1-ci, 3-cü və 5-ci günləri həyata keçirilir.</p><div className="delivery-days"><b>1</b><b>3</b><b>5</b></div></article><article><MapPin/><span>02</span><h2>MAĞAZA ÜNVANI</h2><p>Sumqayıt şəhəri, 9-cu mikrorayon<br/>“ƏN UCUZ” Marketin yanı<br/>Koroğlu küçəsi 4/21</p></article><article><Phone/><span>03</span><h2>ƏLAQƏ</h2><a href="tel:+994707223939">070 722 39 39</a><p>Sifariş və çatdırılma məlumatı üçün bizimlə əlaqə saxlayın.</p></article></section><section className="delivery-cta"><div className="container"><CalendarDays/><div><span className="eyebrow">1 · 3 · 5-Cİ GÜNLƏR</span><h2>ÇATDIRILMANI DƏQİQLƏŞDİR</h2></div><a className="button" href={`https://wa.me/${whatsappNumber}?text=${message}`} target="_blank"><MessageCircle/> WhatsApp-da yaz</a></div></section></> }
+export default function Delivery() {
+  const message = encodeURIComponent(
+    "Salam, Qayalı Sport saytından müraciət edirəm. Çatdırılma haqqında məlumat almaq istəyirəm.",
+  );
+
+  return (
+    <>
+      <SEO
+        title="Çatdırılma"
+        description="Qayalı Sport çatdırılma məlumatları — 1-ci, 3-cü və 5-ci günlər, Sumqayıt ünvanı və əlaqə nömrəsi."
+      />
+      <PageHero
+        index="04"
+        eyebrow="ÇATDIRILMA"
+        title="SİFARİŞİN YOLDADIR"
+        text="Sifarişlərinizi müəyyən edilmiş günlərdə ünvanınıza çatdırırıq."
+      />
+
+      <section className="section container delivery-grid">
+        <article>
+          <Truck />
+          <span>01</span>
+          <h2>ÇATDIRILMA GÜNLƏRİ</h2>
+          <p>
+            Çatdırılma həftənin 1-ci, 3-cü və 5-ci günləri həyata keçirilir.
+          </p>
+          <div className="delivery-days">
+            <b>1</b>
+            <b>3</b>
+            <b>5</b>
+          </div>
+        </article>
+
+        <article>
+          <MapPin />
+          <span>02</span>
+          <h2>MAĞAZA ÜNVANI</h2>
+          <p>
+            Sumqayıt şəhəri, 9-cu mikrorayon
+            <br />
+            “ƏN UCUZ” Marketin yanı
+            <br />
+            Koroğlu küçəsi 4/21
+          </p>
+        </article>
+
+        <article>
+          <Phone />
+          <span>03</span>
+          <h2>ƏLAQƏ</h2>
+          <a href="tel:+994707223939">070 722 39 39</a>
+          <p>
+            Sifariş və çatdırılma məlumatı üçün bizimlə əlaqə saxlayın.
+          </p>
+        </article>
+      </section>
+
+      <section className="delivery-cta">
+        <div className="container">
+          <CalendarDays />
+          <div>
+            <span className="eyebrow">1 · 3 · 5-Cİ GÜNLƏR</span>
+            <h2>ÇATDIRILMANI DƏQİQLƏŞDİR</h2>
+          </div>
+          <a
+            className="button"
+            href={`https://wa.me/${whatsappNumber}?text=${message}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle /> WhatsApp-da yaz
+          </a>
+        </div>
+      </section>
+    </>
+  );
+}

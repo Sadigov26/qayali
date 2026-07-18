@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createProduct } from "../api/adminApi";
+import SEO from "../../components/SEO";
 import AdminHeader from "../components/AdminHeader";
 import ProductForm from "../components/ProductForm";
 
@@ -29,6 +30,10 @@ export default function ProductCreate() {
 
   return (
     <>
+      <SEO
+        title="Yeni post"
+        description="Qayalı Sport yeni məhsul paylaşımı."
+      />
       <AdminHeader
         eyebrow="Məhsullar"
         title="Yeni post əlavə et"

@@ -1,6 +1,7 @@
 import { KeyRound, LogOut, ShieldAlert } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SEO from "../../components/SEO";
 import { changeAdminPassword, clearAdminToken } from "../api/adminApi";
 import AdminHeader from "../components/AdminHeader";
 
@@ -58,6 +59,10 @@ export default function AdminSettings() {
 
   return (
     <>
+      <SEO
+        title="Admin ayarlar"
+        description="Qayalı Sport panel təhlükəsizlik ayarları."
+      />
       {logoutModalOpen && (
         <div className="admin-modal-backdrop" role="presentation">
           <section

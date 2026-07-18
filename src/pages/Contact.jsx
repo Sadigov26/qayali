@@ -1,5 +1,6 @@
 import { MapPin, Phone, MessageCircle, Star, ExternalLink, Quote } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube, FaGoogle } from "react-icons/fa6";
+import SEO from "../components/SEO";
 import { Heading, PageHero } from "../components/UI";
 import { social } from "../data/media";
 import { whatsappNumber } from "../data/products";
@@ -23,6 +24,10 @@ export default function Contact() {
   };
   return (
     <>
+      <SEO
+        title="Əlaqə"
+        description="Qayalı Sport əlaqə məlumatları — Sumqayıt şəhəri, 9-cu mikrorayon, WhatsApp və Google Maps ünvanı."
+      />
       <PageHero
         index="05"
         eyebrow="ƏLAQƏ"

@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingOverlay, ProductSkeletonGrid } from "../../components/LoadingStates";
+import SEO from "../../components/SEO";
 import { defaultCategories } from "../../data/categories";
 import { deleteProduct, getProducts, getProductStats } from "../api/adminApi";
 import AdminHeader from "../components/AdminHeader";
@@ -132,6 +133,10 @@ export default function ProductsAdmin() {
 
   return (
     <>
+      <SEO
+        title="Admin məhsullar"
+        description="Qayalı Sport məhsul və post idarəetməsi."
+      />
       {deletingTitle && (
         <LoadingOverlay
           title="Post silinir"

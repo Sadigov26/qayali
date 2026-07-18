@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import storeImage from "../about/bizkimik.jpg";
 import { ProductSkeletonGrid } from "../components/LoadingStates";
+import SEO from "../components/SEO";
 import { EmptyProducts, Heading, ProductCard, VideoCard } from "../components/UI";
 import { mediaVideos } from "../data/media";
 import { useLiveContent } from "../hooks/useLiveContent";
@@ -215,6 +216,10 @@ export default function Home() {
 
   return (
     <>
+      <SEO
+        title="Ana səhifə"
+        description="Qayalı Sport — idman geyimləri, idman avadanlıqları və Sumqayıtda etibarlı mağaza seçimi."
+      />
       <HeroSection />
       <TrustStrip />
       <ProductsSection products={birmarketProducts} />

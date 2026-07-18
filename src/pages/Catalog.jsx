@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { ProductSkeletonGrid } from "../components/LoadingStates";
+import SEO from "../components/SEO";
 import { EmptyProducts, Heading, PageHero, ProductCard } from "../components/UI";
 import { uniqueCategories } from "../data/categories";
 import { useLiveContent } from "../hooks/useLiveContent";
@@ -90,6 +91,10 @@ export default function Catalog() {
 
   return (
     <>
+      <SEO
+        title="Kataloq"
+        description="Qayalı Sport kataloqu — seçilmiş idman geyimləri, avadanlıqlar və mağazadan yeni məhsul paylaşımları."
+      />
       <PageHero
         index="01"
         eyebrow="MƏHSULLAR"

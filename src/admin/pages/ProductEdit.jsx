@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { LoadingPanel } from "../../components/LoadingStates";
+import SEO from "../../components/SEO";
 import { adminRequest, updateProduct } from "../api/adminApi";
 import AdminHeader from "../components/AdminHeader";
 import ProductForm from "../components/ProductForm";
@@ -66,6 +67,10 @@ export default function ProductEdit() {
 
   return (
     <>
+      <SEO
+        title={product?.title ? `${product.title} redaktə` : "Postu redaktə et"}
+        description="Qayalı Sport məhsul məlumatlarını yenilə."
+      />
       <AdminHeader
         eyebrow="Məhsullar"
         title="Postu redaktə et"

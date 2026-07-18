@@ -2,6 +2,7 @@ import { BarChart3, Eye, Layers3, Plus, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingPanel } from "../../components/LoadingStates";
+import SEO from "../../components/SEO";
 import { getProductStats } from "../api/adminApi";
 import AdminHeader from "../components/AdminHeader";
 
@@ -56,6 +57,10 @@ export default function AdminDashboard() {
 
   return (
     <>
+      <SEO
+        title="Admin dashboard"
+        description="Qayalı Sport idarəetmə paneli."
+      />
       <AdminHeader
         eyebrow="Qayalı Sport"
         title="İdarəetmə paneli"

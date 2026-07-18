@@ -1,6 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import SEO from "../../components/SEO";
 import { loginAdmin, setAdminToken } from "../api/adminApi";
 import "../styles/Admin.css";
 
@@ -29,6 +30,10 @@ export default function AdminLogin() {
 
   return (
     <main className="admin-login-page">
+      <SEO
+        title="Admin giriş"
+        description="Qayalı Sport idarəetmə panelinə giriş."
+      />
       <form className="admin-login-card" onSubmit={submit}>
         <div className="admin-login-icon">
           <ShieldCheck />

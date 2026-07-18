@@ -6,6 +6,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 import { PageHero, Heading } from "../components/UI";
 const values = [
   [Gem, "Keyfiyyət", "Uzunmüddətli istifadəyə hesablanmış seçilmiş məhsullar."],
@@ -20,6 +21,10 @@ const values = [
 export default function About() {
   return (
     <>
+      <SEO
+        title="Haqqımızda"
+        description="Qayalı Sport haqqında — Sumqayıtda idman geyimləri və fitness avadanlıqları üçün etibarlı mağaza."
+      />
       <PageHero
         index="03"
         eyebrow="BİZİM HEKAYƏ"

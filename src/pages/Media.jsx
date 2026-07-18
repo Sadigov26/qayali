@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa6";
 import { ProductSkeletonGrid } from "../components/LoadingStates";
+import SEO from "../components/SEO";
 import {
   EmptyProducts,
   Heading,
@@ -75,6 +76,10 @@ export default function Media() {
 
   return (
     <>
+      <SEO
+        title="Media"
+        description="Qayalı Media — YouTube videosu, sosial kanallar və mağazadan yeni Qayalı Sport paylaşımları."
+      />
       <PageHero
         index="02"
         eyebrow="BİZİ İZLƏYİN"

@@ -10,6 +10,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { LoadingPanel, LoadingOverlay } from "../components/LoadingStates";
+import SEO from "../components/SEO";
 import { orderLink } from "../data/products";
 
 const API_BASE_URL =
@@ -132,6 +133,10 @@ export default function PostDetail() {
   if (loading) {
     return (
       <section className="section container">
+        <SEO
+          title="Paylaşım yüklənir"
+          description="Qayalı Sport məhsul məlumatları yüklənir."
+        />
         <LoadingPanel
           title="Paylaşım yüklənir"
           text="Məhsul məlumatları hazırlanır."
@@ -143,6 +148,10 @@ export default function PostDetail() {
   if (error) {
     return (
       <section className="section container">
+        <SEO
+          title="Paylaşım tapılmadı"
+          description="Axtardığınız Qayalı Sport paylaşımı tapılmadı."
+        />
         <div className="post-empty">
           <h1>Paylaşım tapılmadı</h1>
           <p>{error}</p>
@@ -156,6 +165,16 @@ export default function PostDetail() {
 
   return (
     <>
+      <SEO
+        title={product.name}
+        description={
+          product.detail
+            ? product.detail.slice(0, 155)
+            : "Qayalı Sport məhsulu haqqında ətraflı məlumat."
+        }
+        image={product.image}
+        type="article"
+      />
       {sharing && (
         <LoadingOverlay
           title="Paylaşılır"

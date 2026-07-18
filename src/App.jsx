@@ -19,6 +19,7 @@ import Delivery from "./pages/Delivery";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Media from "./pages/Media";
+import PostDetail from "./pages/PostDetail";
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/kataloq" element={<Catalog />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/haqqimizda" element={<About />} />
           <Route path="/catdirilma" element={<Delivery />} />
           <Route path="/elaqe" element={<Contact />} />

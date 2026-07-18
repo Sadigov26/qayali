@@ -34,7 +34,7 @@ export default function AdminLogin() {
           <ShieldCheck />
         </div>
         <span>Qayalı Sport</span>
-        <h1>Admin girişi</h1>
+        <h1>Giriş</h1>
 
         <label>
           İstifadəçi adı

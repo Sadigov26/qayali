@@ -52,8 +52,8 @@ export default function AdminSettings() {
     <>
       <AdminHeader
         eyebrow="Təhlükəsizlik"
-        title="Admin ayarları"
-        text="Admin şifrəsini paneldən dəyiş və giriş məlumatlarını təhlükəsiz saxla."
+        title="Ayarlar"
+        text="Giriş şifrəsini yenilə və hesabı təhlükəsiz saxla."
       />
 
       <section className="admin-settings-grid">
@@ -113,10 +113,10 @@ export default function AdminSettings() {
         </form>
 
         <article className="admin-empty">
-          <strong>Admin postları artıq saytda görünür</strong>
+          <strong>Paylaşımlar saytda görünür</strong>
           <p>
-            Bu paneldən əlavə etdiyin məhsul/postlar Ana səhifə, Kataloq və Media
-            bölmələrində Instagram postlarının yerinə avtomatik göstərilir.
+            Əlavə etdiyin məhsul və postlar Ana səhifə, Kataloq və Media
+            bölmələrində avtomatik göstərilir.
           </p>
         </article>
       </section>

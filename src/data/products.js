@@ -2,7 +2,7 @@ export const products = [
   {
     id: 1,
     name: "Qantel, polad, gümüşü",
-    category: "fitness",
+    category: "Fitness",
     detail: "Xromlanmış polad · Bütöv tökmə",
     weight: "7.5 kq",
     price: "98.50 ₼",
@@ -13,7 +13,7 @@ export const products = [
   {
     id: 2,
     name: "Qantel Sweat",
-    category: "fitness",
+    category: "Fitness",
     detail: "Dəmir / kauçuk · Qırmızı",
     weight: "3 kq",
     price: "29.99 ₼",
@@ -24,7 +24,7 @@ export const products = [
   {
     id: 3,
     name: "Qantel Sweat",
-    category: "fitness",
+    category: "Fitness",
     detail: "Dəmir / kauçuk · Qırmızı",
     weight: "4 kq",
     price: "35.90 ₼",
@@ -35,7 +35,7 @@ export const products = [
   {
     id: 4,
     name: "Qantel, polad, gümüşü",
-    category: "fitness",
+    category: "Fitness",
     detail: "Xromlanmış polad · Bütöv tökmə",
     weight: "10 kq",
     price: "116.99 ₼",
@@ -46,5 +46,10 @@ export const products = [
 ];
 
 export const whatsappNumber = "994707223939";
-export const orderLink = (name) =>
-  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Salam, Qayalı Sport saytından müraciət edirəm. ${name} haqqında məlumat almaq istəyirəm.`)}`;
+
+export const orderLink = (name, url = "") => {
+  const extra = url ? `\nPost linki: ${url}` : "";
+  const text = `Salam, Qayalı Sport saytından müraciət edirəm. ${name} haqqında məlumat almaq istəyirəm.${extra}`;
+
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+};

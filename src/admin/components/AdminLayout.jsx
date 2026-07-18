@@ -25,7 +25,7 @@ export default function AdminLayout() {
           <span>Q</span>
           <div>
             <strong>Qayalı Sport</strong>
-            <small>Admin panel</small>
+            <small>İdarəetmə paneli</small>
           </div>
         </NavLink>
 

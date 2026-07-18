@@ -57,8 +57,25 @@ export function changeAdminPassword(payload) {
   });
 }
 
-export function getProducts(page = 1, limit = 20) {
-  return adminRequest(`/api/products?page=${page}&limit=${limit}`);
+export function getProducts(page = 1, limit = 20, options = {}) {
+  const params = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+  });
+
+  if (options.category && options.category !== "all") {
+    params.set("category", options.category);
+  }
+
+  if (options.sort) {
+    params.set("sort", options.sort);
+  }
+
+  return adminRequest(`/api/products?${params.toString()}`);
+}
+
+export function getProductStats() {
+  return adminRequest("/api/products/stats");
 }
 
 export function createProduct(formData) {

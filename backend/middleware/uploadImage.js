@@ -1,5 +1,4 @@
 import multer from "multer";
-import { productImageStorage } from "../config/cloudinary.js";
 
 const MAX_FILE_SIZE = 3 * 1024 * 1024;
 
@@ -12,7 +11,7 @@ function imageOnly(_request, file, callback) {
 }
 
 export const uploadProductImage = multer({
-  storage: productImageStorage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: MAX_FILE_SIZE },
   fileFilter: imageOnly,
 });

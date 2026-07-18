@@ -9,7 +9,8 @@ import {
   Truck,
 } from "lucide-react";
 import storeImage from "../about/bizkimik.jpg";
-import { Heading, ProductCard, VideoCard } from "../components/UI";
+import { ProductSkeletonGrid } from "../components/LoadingStates";
+import { EmptyProducts, Heading, ProductCard, VideoCard } from "../components/UI";
 import { mediaVideos } from "../data/media";
 import { useLiveContent } from "../hooks/useLiveContent";
 
@@ -110,6 +111,44 @@ function TrustStrip() {
   );
 }
 
+function ProductsGrid({ products, limit, loading = false, emptyText }) {
+  const visibleProducts = products.slice(0, limit);
+
+  if (loading) {
+    return <ProductSkeletonGrid count={limit} />;
+  }
+
+  if (visibleProducts.length === 0) {
+    return <EmptyProducts text={emptyText} />;
+  }
+
+  return (
+    <div className="products-grid">
+      {visibleProducts.map((product, index) => (
+        <ProductCard p={product} index={index} key={product.id} />
+      ))}
+    </div>
+  );
+}
+
+function ProductsSection({ products }) {
+  return (
+    <section className="section container">
+      <Heading
+        eyebrow="SEÇİLMİŞ MƏHSULLAR"
+        title="GÜCÜNÜ SEÇ"
+        text="Birmarket vitrinimizdən seçilmiş real məhsullar."
+        action={
+          <Link className="text-link" to="/kataloq">
+            Hamısına bax <ArrowRight />
+          </Link>
+        }
+      />
+      <ProductsGrid products={products} limit={4} />
+    </section>
+  );
+}
+
 function StorySection() {
   return (
     <section className="story-section">
@@ -150,58 +189,37 @@ function StorySection() {
   );
 }
 
-function ProductsSection({ products }) {
-  return (
-    <section className="section container">
-      <Heading
-        eyebrow="SEÇİLMİŞ MƏHSULLAR"
-        title="GÜCÜNÜ SEÇ"
-        text="Admin paneldən əlavə olunan ən yeni məhsul və paylaşımlar."
-        action={
-          <Link className="text-link" to="/kataloq">
-            Hamısına bax <ArrowRight />
-          </Link>
-        }
-      />
-      <div className="products-grid">
-        {products.slice(0, 4).map((product, index) => (
-          <ProductCard p={product} index={index} key={product.id} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function MediaSection({ products }) {
+function MediaSection({ products, loading }) {
   return (
     <section className="section container">
       <Heading
         eyebrow="QAYALI MEDİA"
         title="HƏRƏKƏTDƏ QAL"
-        text="YouTube videosu və admin paneldən idarə olunan son məhsul paylaşımları."
+        text="YouTube videosu və mağazamızdan yeni məhsul paylaşımları."
       />
       <div className="home-media-stack">
         <VideoCard video={mediaVideos[0]} />
-        <div className="products-grid home-posts-grid">
-          {products.slice(0, 6).map((product, index) => (
-            <ProductCard p={product} index={index} key={product.id} />
-          ))}
-        </div>
+        <ProductsGrid
+          products={products}
+          limit={6}
+          loading={loading}
+          emptyText="Yeni məhsul paylaşımları tezliklə burada görünəcək."
+        />
       </div>
     </section>
   );
 }
 
 export default function Home() {
-  const { products } = useLiveContent();
+  const { birmarketProducts, products, loading } = useLiveContent();
 
   return (
     <>
       <HeroSection />
       <TrustStrip />
-      <ProductsSection products={products} />
+      <ProductsSection products={birmarketProducts} />
       <StorySection />
-      <MediaSection products={products} />
+      <MediaSection products={products} loading={loading} />
 
       <section className="cta-band">
         <div className="container">

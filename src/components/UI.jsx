@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { orderLink } from "../data/products";
+import { Link } from "react-router-dom";
 
 export function Heading({ eyebrow, title, text, action }) {
   return (
@@ -32,41 +32,85 @@ export function ProductCard({ p, index = 0 }) {
   const detail = p.detail || p.description;
   const image = p.image || p.imageUrl;
   const price = typeof p.price === "number" ? `${p.price} ₼` : p.price;
-  const source = p.source || orderLink(name);
+  const category = p.category || "Ümumi";
   const displayIndex = p.displayIndex || String(index + 1).padStart(2, "0");
+  const isBirmarketProduct = Boolean(p.source);
+  const detailPath = `/post/${p.id}`;
+  const cardClassName = `product-card ${
+    isBirmarketProduct ? "birmarket-card" : "store-card"
+  }`;
+  const visualContent = (
+    <>
+      {p.weight && <span className="weight-stamp">{p.weight}</span>}
+      <img src={image} alt={name} loading="lazy" />
+      <span className="product-index">{displayIndex}</span>
+    </>
+  );
 
   return (
-    <article className="product-card">
-      <a className="product-visual" href={source} target="_blank" rel="noreferrer">
-        {p.weight && <span className="weight-stamp">{p.weight}</span>}
-        <img src={image} alt={name} loading="lazy" />
-        <span className="product-index">{displayIndex}</span>
-      </a>
+    <article className={cardClassName}>
+      {isBirmarketProduct ? (
+        <a
+          className="product-visual"
+          href={p.source}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {visualContent}
+        </a>
+      ) : (
+        <Link className="product-visual" to={detailPath}>
+          {visualContent}
+        </Link>
+      )}
 
       <div className="product-info">
-        <span>FİTNESS AVADANLIĞI</span>
-        <h3>{name}</h3>
-        <p>{detail}</p>
+        <span>
+          {isBirmarketProduct ? `BİRMARKET · ${category}` : category}
+        </span>
+        <h3 title={name}>{name}</h3>
+        <p title={detail}>{detail}</p>
 
         <div className="product-bottom">
           <strong>{price}</strong>
-          <a
-            href={orderLink(name)}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`${name} sifariş et`}
-          >
-            <ArrowUpRight />
-          </a>
+          {isBirmarketProduct ? (
+            <a
+              href={p.source}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${name} məhsuluna bax`}
+            >
+              <ArrowUpRight />
+            </a>
+          ) : (
+            <Link to={detailPath} aria-label={`${name} səhifəsinə bax`}>
+              <ArrowUpRight />
+            </Link>
+          )}
         </div>
 
-        {p.source && (
+        {isBirmarketProduct ? (
           <a className="source-link" href={p.source} target="_blank" rel="noreferrer">
             Məhsula Birmarket-də bax
           </a>
+        ) : (
+          <Link className="source-link" to={detailPath}>
+            Ətraflı bax
+          </Link>
         )}
       </div>
     </article>
+  );
+}
+
+export function EmptyProducts({
+  text = "Yeni məhsullar tezliklə burada görünəcək.",
+}) {
+  return (
+    <div className="empty-products">
+      <strong>Tezliklə</strong>
+      <p>{text}</p>
+    </div>
   );
 }
 

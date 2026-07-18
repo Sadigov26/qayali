@@ -16,6 +16,16 @@ const productSchema = new mongoose.Schema(
       type: Number,
       default: null,
     },
+    category: {
+      type: String,
+      default: "Ümumi",
+      trim: true,
+    },
+    views: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
     imageUrl: {
       type: String,
       required: true,

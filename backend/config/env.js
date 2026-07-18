@@ -5,5 +5,5 @@ import { fileURLToPath } from "node:url";
 const configDir = path.dirname(fileURLToPath(import.meta.url));
 const backendEnvPath = path.resolve(configDir, "..", ".env");
 
-dotenv.config({ path: backendEnvPath });
-dotenv.config();
+dotenv.config({ path: backendEnvPath, quiet: true });
+dotenv.config({ quiet: true });

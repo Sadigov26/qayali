@@ -1,11 +1,77 @@
 import { ArrowUpRight } from "lucide-react";
+import { useMemo, useState } from "react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa6";
-import { Heading, PageHero, ProductCard, VideoCard } from "../components/UI";
+import { ProductSkeletonGrid } from "../components/LoadingStates";
+import {
+  EmptyProducts,
+  Heading,
+  PageHero,
+  ProductCard,
+  VideoCard,
+} from "../components/UI";
+import { uniqueCategories } from "../data/categories";
 import { mediaVideos, social } from "../data/media";
 import { useLiveContent } from "../hooks/useLiveContent";
 
+function CategoryFilter({ categories, value, onChange }) {
+  if (categories.length <= 1) {
+    return null;
+  }
+
+  return (
+    <div className="filter-bar category-filter">
+      {categories.map((category) => (
+        <button
+          className={value === category ? "active" : ""}
+          onClick={() => onChange(category)}
+          type="button"
+          key={category}
+        >
+          {category === "all" ? "Hamısı" : category}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function MediaProducts({ products, loading, categories, category, onCategoryChange }) {
+  if (loading) {
+    return <ProductSkeletonGrid count={4} />;
+  }
+
+  if (products.length === 0) {
+    return (
+      <EmptyProducts text="Yeni məhsul paylaşımları tezliklə burada görünəcək." />
+    );
+  }
+
+  return (
+    <>
+      <CategoryFilter
+        categories={categories}
+        value={category}
+        onChange={onCategoryChange}
+      />
+      <div className="products-grid">
+        {products.map((product, index) => (
+          <ProductCard p={product} index={index} key={product.id} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function Media() {
-  const { products, live } = useLiveContent();
+  const { products, loading } = useLiveContent();
+  const [category, setCategory] = useState("all");
+  const categories = useMemo(() => ["all", ...uniqueCategories(products)], [products]);
+  const filteredProducts = useMemo(
+    () =>
+      category === "all"
+        ? products
+        : products.filter((product) => product.category === category),
+    [category, products],
+  );
 
   return (
     <>
@@ -13,7 +79,7 @@ export default function Media() {
         index="02"
         eyebrow="BİZİ İZLƏYİN"
         title="QAYALI MEDİA"
-        text="Son videolarımız və admin paneldən idarə olunan yeni məhsul paylaşımları."
+        text="YouTube videosu və mağazamızdan yeni məhsul paylaşımları."
       />
 
       <section className="section container">
@@ -27,7 +93,12 @@ export default function Media() {
               Reklam videoları və mağaza görüntüləri rəsmi YouTube kanalımızdan
               göstərilir.
             </p>
-            <a className="text-link" href={social.youtube} target="_blank" rel="noreferrer">
+            <a
+              className="text-link"
+              href={social.youtube}
+              target="_blank"
+              rel="noreferrer"
+            >
               YouTube kanalına keç <ArrowUpRight />
             </a>
           </div>
@@ -37,19 +108,17 @@ export default function Media() {
       <section className="section panel">
         <div className="container">
           <Heading
-            eyebrow="ADMIN PAYLAŞIMLARI"
+            eyebrow="YENİ PAYLAŞIMLAR"
             title="YENİ MƏHSULLAR"
-            text={
-              live
-                ? "Bu bölmə birbaşa admin paneldən əlavə olunan postlardan gəlir."
-                : "Backend boş olduqda nümunə məhsullar göstərilir."
-            }
+            text="YouTube videosunun altında yalnız mağazanın yeni məhsul paylaşımları görünür."
           />
-          <div className="products-grid">
-            {products.map((product, index) => (
-              <ProductCard p={product} index={index} key={product.id} />
-            ))}
-          </div>
+          <MediaProducts
+            products={filteredProducts}
+            loading={loading}
+            categories={categories}
+            category={category}
+            onCategoryChange={setCategory}
+          />
         </div>
       </section>
 

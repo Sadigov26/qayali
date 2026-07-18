@@ -252,6 +252,35 @@
   display: none;
 }
 
+.admin-selected-file {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(255, 239, 5, 0.28);
+  background:
+    radial-gradient(circle at 82% 28%, rgba(255, 239, 5, 0.14), transparent 36%),
+    #0c0d11;
+  padding: 14px;
+}
+
+.admin-selected-file span {
+  color: #ffef05;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+.admin-selected-file strong {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.admin-selected-file small {
+  color: #a4a9b4;
+}
+
 .admin-field-error {
   color: #ffb7b7 !important;
 }

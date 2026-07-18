@@ -12,6 +12,18 @@ const emptyProduct = {
 
 const descriptionCharacterLimit = 700;
 
+function formatFileSize(size = 0) {
+  if (!size) {
+    return "";
+  }
+
+  if (size < 1024 * 1024) {
+    return `${Math.max(size / 1024, 1).toFixed(0)} KB`;
+  }
+
+  return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+}
+
 export default function ProductForm({
   initialProduct,
   submitLabel = "Yadda saxla",
@@ -173,16 +185,24 @@ export default function ProductForm({
               Şəkil seç və ya çək
               <input
                 accept="image/*"
-                capture="environment"
                 onChange={updateImage}
                 type="file"
                 disabled={loading}
               />
             </span>
           </div>
-          {image && <small>Seçilən şəkil: {image.name}</small>}
+          {image && (
+            <div className="admin-selected-file">
+              <span>Şəkil seçildi</span>
+              <strong>{image.name || "Kamera şəkli"}</strong>
+              {image.size > 0 && <small>{formatFileSize(image.size)}</small>}
+            </div>
+          )}
           {imageError && <small className="admin-field-error">{imageError}</small>}
-        
+          <small>
+            Telefonda qalereyadan seçə və ya kamera ilə çəkə bilərsiniz. Şəkil
+            optimizasiya olunur, bazada yalnız link saxlanılır.
+          </small>
         </label>
 
         {initialProduct?.imageUrl && !image && (

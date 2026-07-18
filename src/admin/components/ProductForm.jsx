@@ -215,7 +215,7 @@ export default function ProductForm({
           <small>
             Tələblər: maksimum 6MB, yalnız şəkil faylı. JPG, PNG və WEBP uyğundur.
             Telefonda qalereyadan seçə və ya kamera ilə çəkə bilərsiniz. Şəkil
-            optimizasiya olunur, bazada yalnız link saxlanılır.
+            optimizasiya olunur.
           </small>
         </label>
 

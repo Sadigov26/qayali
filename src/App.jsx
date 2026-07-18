@@ -28,7 +28,7 @@ export default function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route element={<RequireAdmin />}>
-          <Route path="/admin1" element={<AdminLayout />}>
+          <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="products" element={<ProductsAdmin />} />
             <Route path="products/new" element={<ProductCreate />} />

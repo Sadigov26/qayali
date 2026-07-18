@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Plus, ShieldAlert } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingOverlay, ProductSkeletonGrid } from "../../components/LoadingStates";
@@ -18,6 +18,7 @@ export default function ProductsAdmin() {
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
   const [deletingTitle, setDeletingTitle] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const categoryOptions = useMemo(() => {
     const dynamicCategories = categoryStats.map((item) => item.category);
@@ -58,20 +59,19 @@ export default function ProductsAdmin() {
     }
   }
 
-  async function removeProduct(product) {
-    const confirmed = window.confirm(`${product.title} silinsin?`);
-
-    if (!confirmed) {
+  async function confirmDeleteProduct() {
+    if (!deleteTarget) {
       return;
     }
 
-    setDeletingTitle(product.title);
+    setDeletingTitle(deleteTarget.title);
+    setDeleteTarget(null);
     setError("");
 
     try {
-      await deleteProduct(product._id);
+      await deleteProduct(deleteTarget._id);
       setProducts((current) =>
-        current.filter((item) => item._id !== product._id),
+        current.filter((item) => item._id !== deleteTarget._id),
       );
       await loadStats();
     } catch {
@@ -137,6 +137,40 @@ export default function ProductsAdmin() {
         title="Admin məhsullar"
         description="Qayalı Sport məhsul və post idarəetməsi."
       />
+      {deleteTarget && (
+        <div className="admin-modal-backdrop" role="presentation">
+          <section
+            aria-labelledby="delete-title"
+            aria-modal="true"
+            className="admin-confirm-modal admin-delete-modal"
+            role="dialog"
+          >
+            <ShieldAlert />
+            <span>Təsdiq lazımdır</span>
+            <h2 id="delete-title">Post silinsin?</h2>
+            <p>
+              “{deleteTarget.title}” silindikdən sonra şəkil və post məlumatı
+              geri qaytarılmayacaq.
+            </p>
+            <div>
+              <button
+                className="admin-secondary"
+                onClick={() => setDeleteTarget(null)}
+                type="button"
+              >
+                Ləğv et
+              </button>
+              <button
+                className="admin-danger"
+                onClick={confirmDeleteProduct}
+                type="button"
+              >
+                Bəli, sil
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
       {deletingTitle && (
         <LoadingOverlay
           title="Post silinir"
@@ -183,7 +217,7 @@ export default function ProductsAdmin() {
       {initialLoading ? (
         <ProductSkeletonGrid count={4} />
       ) : (
-        <ProductTable products={products} onDelete={removeProduct} />
+        <ProductTable products={products} onDelete={setDeleteTarget} />
       )}
 
       {pageInfo.page < pageInfo.totalPages && (

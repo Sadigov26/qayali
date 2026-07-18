@@ -48,6 +48,7 @@ export function uploadProductImageToCloudinary(file) {
       {
         folder: "qayali-sport/products",
         resource_type: "image",
+        format: "webp",
         transformation: [
           {
             width: 1600,

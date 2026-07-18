@@ -197,7 +197,7 @@ export default function ProductForm({
               <ImageUp size={18} />
               Şəkil seç və ya çək
               <input
-                accept="image/*"
+                accept="image/*,.heic,.heif"
                 onChange={updateImage}
                 type="file"
                 disabled={loading}
@@ -213,9 +213,9 @@ export default function ProductForm({
           )}
           {imageError && <small className="admin-field-error">{imageError}</small>}
           <small>
-            Tələblər: maksimum 6MB, yalnız şəkil faylı. JPG, PNG və WEBP uyğundur.
+            Tələblər: maksimum 6MB, yalnız şəkil faylı. JPG, PNG, WEBP və HEIC uyğundur.
             Telefonda qalereyadan seçə və ya kamera ilə çəkə bilərsiniz. Şəkil
-            optimizasiya olunur.
+            saytda açılan formata çevrilib optimizasiya olunur.
           </small>
         </label>
 

@@ -4,7 +4,7 @@ import "../styles/Admin.css";
 
 const adminLinks = [
   { to: "/admin", label: "Dashboard", icon: ShieldCheck, end: true },
-  { to: "/admin/products", label: "Məhsullar", icon: Package },
+  { to: "/admin/products", label: "Məhsullar", icon: Package, end: true },
   { to: "/admin/products/new", label: "Yeni post", icon: PlusCircle },
   { to: "/admin/settings", label: "Ayarlar", icon: Settings },
 ];

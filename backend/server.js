@@ -57,7 +57,31 @@ app.use((error, _request, response, _next) => {
   console.error(error.message || error);
 
   if (error.name === "MulterError" && error.code === "LIMIT_FILE_SIZE") {
-    return response.status(400).json({ message: "Şəkil maksimum 3MB ola bilər" });
+    return response.status(400).json({
+      message: "Şəkil maksimum 6MB ola bilər. Daha kiçik ölçülü şəkil seçin.",
+    });
+  }
+
+  if (error.name === "ValidationError") {
+    const message = Object.values(error.errors)
+      .map((item) => item.message)
+      .join(". ");
+
+    return response.status(400).json({
+      message: message || "Məlumatları yoxlayıb yenidən cəhd edin.",
+    });
+  }
+
+  if (error.message?.includes("Yalnız şəkil")) {
+    return response.status(400).json({ message: error.message });
+  }
+
+  if (error.http_code || error.name === "Error") {
+    return response.status(400).json({
+      message:
+        error.message ||
+        "Şəkil yüklənmədi. İnternet bağlantısını və şəkil formatını yoxlayın.",
+    });
   }
 
   return response

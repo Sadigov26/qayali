@@ -54,8 +54,11 @@ export default function ProductEdit() {
     try {
       await updateProduct(id, formData);
       navigate("/admin/products");
-    } catch {
-      setError("Dəyişiklik saxlanmadı. Şəkli və məlumatları yoxlayıb yenidən cəhd edin.");
+    } catch (updateError) {
+      setError(
+        updateError.message ||
+          "Dəyişiklik saxlanmadı. Şəkli və məlumatları yoxlayıb yenidən cəhd edin.",
+      );
     } finally {
       setSaving(false);
     }

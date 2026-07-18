@@ -35,10 +35,18 @@ export async function adminRequest(path, options = {}) {
     headers.set("Content-Type", "application/json");
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...options,
-    headers,
-  });
+  let response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...options,
+      headers,
+    });
+  } catch {
+    throw new Error(
+      "Serverlə əlaqə qurulmadı. İnternet bağlantısını və backend ünvanını yoxlayın.",
+    );
+  }
 
   return parseResponse(response);
 }

@@ -17,8 +17,11 @@ export default function ProductCreate() {
     try {
       await createProduct(formData);
       navigate("/admin/products");
-    } catch {
-      setError("Post paylaşılmadı. Şəkli və məlumatları yoxlayıb yenidən cəhd edin.");
+    } catch (createError) {
+      setError(
+        createError.message ||
+          "Post paylaşılmadı. Şəkli və məlumatları yoxlayıb yenidən cəhd edin.",
+      );
     } finally {
       setSaving(false);
     }

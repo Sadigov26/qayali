@@ -11,6 +11,7 @@ const emptyProduct = {
 };
 
 const descriptionCharacterLimit = 700;
+const imageSizeLimit = 6 * 1024 * 1024;
 
 function formatFileSize(size = 0) {
   if (!size) {
@@ -62,6 +63,18 @@ export default function ProductForm({
 
   function updateImage(event) {
     const selectedImage = event.target.files?.[0] || null;
+
+    if (selectedImage && selectedImage.size > imageSizeLimit) {
+      setImage(null);
+      setImageError(
+        `Şəkil maksimum 6MB ola bilər. Seçilən şəkil ${formatFileSize(
+          selectedImage.size,
+        )}-dır.`,
+      );
+      event.target.value = "";
+      return;
+    }
+
     setImage(selectedImage);
     setImageError("");
   }
@@ -200,6 +213,7 @@ export default function ProductForm({
           )}
           {imageError && <small className="admin-field-error">{imageError}</small>}
           <small>
+            Tələblər: maksimum 6MB, yalnız şəkil faylı. JPG, PNG və WEBP uyğundur.
             Telefonda qalereyadan seçə və ya kamera ilə çəkə bilərsiniz. Şəkil
             optimizasiya olunur, bazada yalnız link saxlanılır.
           </small>

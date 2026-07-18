@@ -7,7 +7,7 @@ import "../styles/Admin.css";
 export default function AdminLogin() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [form, setForm] = useState({ username: "admin", password: "" });
+  const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -40,6 +40,7 @@ export default function AdminLogin() {
           İstifadəçi adı
           <input
             autoComplete="username"
+            placeholder="İstifadəçi adını yazın"
             onChange={(event) =>
               setForm((current) => ({
                 ...current,
@@ -55,6 +56,7 @@ export default function AdminLogin() {
           Şifrə
           <input
             autoComplete="current-password"
+            placeholder="Şifrənizi yazın"
             onChange={(event) =>
               setForm((current) => ({
                 ...current,

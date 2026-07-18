@@ -1,4 +1,50 @@
-import { Heading, InstagramCard, PageHero, ProductCard } from "../components/UI";
+import { Heading, PageHero, ProductCard } from "../components/UI";
 import { useLiveContent } from "../hooks/useLiveContent";
 
-export default function Catalog() { const { products, posts } = useLiveContent(); return <><PageHero index="01" eyebrow="MƏHSULLAR" title="KATALOQ" text="Qayalı Sport-un Birmarket vitrinindən avtomatik yenilənən real məhsullar, şəkillər və qiymətlər."/><section className="section container"><div className="catalog-source"><span>{products.length} REAL MƏHSUL</span><a className="text-link" href="https://birmarket.az/merchant/9215-qayali-sport" target="_blank" rel="noreferrer">Birmarket vitrininə keç</a></div><div className="products-grid">{products.map((product) => <ProductCard p={product} key={product.source || product.id}/>)}</div></section><section className="section panel"><div className="container"><Heading eyebrow="INSTAGRAM" title="YENİ PAYLAŞIMLAR" text="Rəsmi hesabdan son foto paylaşımlar."/><div className="instagram-grid instagram-live-grid catalog-instagram">{posts.slice(0,6).map((post,index)=><InstagramCard post={post} index={index} key={post.id}/>)}</div></div></section></> }
+export default function Catalog() {
+  const { products, posts, live } = useLiveContent();
+
+  return (
+    <>
+      <PageHero
+        index="01"
+        eyebrow="MƏHSULLAR"
+        title="KATALOQ"
+        text="Admin paneldən idarə olunan Qayalı Sport məhsulları və paylaşımları."
+      />
+
+      <section className="section container">
+        <div className="catalog-source">
+          <span>{products.length} MƏHSUL</span>
+          <span>{live ? "MongoDB admin datası" : "Fallback məhsullar"}</span>
+        </div>
+
+        <div className="products-grid">
+          {products.map((product, index) => (
+            <ProductCard
+              p={product}
+              index={index}
+              key={product.source || product.id}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="section panel">
+        <div className="container">
+          <Heading
+            eyebrow="ADMIN PANEL"
+            title="SON PAYLAŞIMLAR"
+            text="Instagram postları ləğv edildi; burada admin paneldən əlavə olunan məhsul/postlar göstərilir."
+          />
+
+          <div className="products-grid catalog-instagram">
+            {posts.slice(0, 6).map((post, index) => (
+              <ProductCard p={post} index={index} key={post.id} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

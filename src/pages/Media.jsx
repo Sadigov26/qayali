@@ -1,87 +1,68 @@
-import { ArrowUpRight, Quote } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa6";
-import { PageHero, VideoCard, Heading, InstagramCard } from "../components/UI";
-import {
-  mediaVideos,
-  social,
-} from "../data/media";
+import { Heading, PageHero, ProductCard, VideoCard } from "../components/UI";
+import { mediaVideos, social } from "../data/media";
 import { useLiveContent } from "../hooks/useLiveContent";
 
 export default function Media() {
-  const { posts: instagramPosts, comments: instagramComments, live } = useLiveContent();
+  const { products, live } = useLiveContent();
+
   return (
     <>
       <PageHero
         index="02"
         eyebrow="BİZİ İZLƏYİN"
         title="QAYALI MEDİA"
-        text="Son videolarımız, yeni məhsullar və Qayalı icmasının səsi."
+        text="Son videolarımız və admin paneldən idarə olunan yeni məhsul paylaşımları."
       />
+
       <section className="section container">
         <Heading eyebrow="YOUTUBE" title="ƏN SON VİDEO" />
         <div className="featured-video">
           <VideoCard video={mediaVideos[0]} />
           <div>
-            <span className="eyebrow">2026</span>
+            <span className="eyebrow">QAYALI SPORT</span>
             <h3>{mediaVideos[0].title}</h3>
             <p>
-              Kanalımıza yüklənən ən yeni video. Bütün reklam filmlərini YouTube
-              kanalımızda izləyə bilərsiniz.
+              Reklam videoları və mağaza görüntüləri rəsmi YouTube kanalımızdan
+              göstərilir.
             </p>
-            <a className="text-link" href={social.youtube} target="_blank">
+            <a className="text-link" href={social.youtube} target="_blank" rel="noreferrer">
               YouTube kanalına keç <ArrowUpRight />
             </a>
           </div>
         </div>
       </section>
+
       <section className="section panel">
         <div className="container">
           <Heading
-            eyebrow="INSTAGRAM"
-            title="SON 12 PAYLAŞIM"
-            text={live ? "Canlı API məlumatı · avtomatik yenilənir." : "Son sinxronlaşdırılmış məlumatlar göstərilir."}
+            eyebrow="ADMIN PAYLAŞIMLARI"
+            title="YENİ MƏHSULLAR"
+            text={
+              live
+                ? "Bu bölmə birbaşa admin paneldən əlavə olunan postlardan gəlir."
+                : "Backend boş olduqda nümunə məhsullar göstərilir."
+            }
           />
-          <div className="instagram-grid instagram-live-grid">
-            {instagramPosts.map((post, index) => (
-              <InstagramCard post={post} index={index} key={post.id} />
+          <div className="products-grid">
+            {products.map((product, index) => (
+              <ProductCard p={product} index={index} key={product.id} />
             ))}
           </div>
         </div>
       </section>
-      <section className="section container">
-        <Heading
-          eyebrow="İCMA RƏYLƏRİ"
-          title="SİZİN SƏSİNİZ"
-          text="Instagram paylaşımımızda yazılan real və müsbət şərhlər."
-        />
-        <div className="comments-marquee"><div className="comments-track">
-          {[...instagramComments, ...instagramComments].map((comment, index) => (
-            <a
-              className="comment-card"
-              href={comment.postUrl}
-              target="_blank"
-              rel="noreferrer"
-              key={`${comment.username}-${index}`}
-            >
-              <Quote />
-              <p>“{comment.text}”</p>
-              <span>
-                <FaInstagram /> @{comment.username}
-              </span>
-            </a>
-          ))}
-        </div></div>
-      </section>
+
       <section className="section container social-follow">
         <h2>BİZƏ QOŞUL.</h2>
         <div>
-          <a href={social.instagram} target="_blank">
+          <a href={social.instagram} target="_blank" rel="noreferrer">
             <FaInstagram /> Instagram <ArrowUpRight />
           </a>
-          <a href={social.tiktok} target="_blank">
+          <a href={social.tiktok} target="_blank" rel="noreferrer">
             <FaTiktok /> TikTok <ArrowUpRight />
           </a>
-          <a href={social.youtube} target="_blank">
+          <a href={social.youtube} target="_blank" rel="noreferrer">
             <FaYoutube /> YouTube <ArrowUpRight />
           </a>
         </div>

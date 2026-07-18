@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k \"npm:dev:api\" \"npm:dev:web\"",
+    "dev": "concurrently -k \"npm:dev:admin-api\" \"npm:dev:web\"",
     "dev:web": "vite",
-    "dev:api": "node --env-file-if-exists=.env server/index.js",
+    "dev:legacy-api": "node --env-file-if-exists=.env server/index.js",
+    "dev:admin-api": "npm --prefix backend run dev",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

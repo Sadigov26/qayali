@@ -10,6 +10,8 @@ const emptyProduct = {
   category: "Ümumi",
 };
 
+const descriptionCharacterLimit = 700;
+
 export default function ProductForm({
   initialProduct,
   submitLabel = "Yadda saxla",
@@ -31,18 +33,43 @@ export default function ProductForm({
 
   const [values, setValues] = useState(initialValues);
   const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const descriptionCharacterCount = values.description.length;
 
   function updateField(event) {
+    if (event.target.name === "description") {
+      setDescriptionError("");
+    }
+
     setValues((current) => ({
       ...current,
       [event.target.name]: event.target.value,
     }));
   }
 
+  function updateImage(event) {
+    const selectedImage = event.target.files?.[0] || null;
+    setImage(selectedImage);
+    setImageError("");
+  }
+
   function submit(event) {
     event.preventDefault();
 
     if (loading) {
+      return;
+    }
+
+    if (!initialProduct && !image) {
+      setImageError("Post paylaşmaq üçün şəkil seçin.");
+      return;
+    }
+
+    if (descriptionCharacterCount > descriptionCharacterLimit) {
+      setDescriptionError(
+        `Açıqlama maksimum ${descriptionCharacterLimit} karakter ola bilər.`,
+      );
       return;
     }
 
@@ -82,6 +109,7 @@ export default function ProductForm({
         <label>
           Açıqlama
           <textarea
+            maxLength={descriptionCharacterLimit}
             name="description"
             value={values.description}
             onChange={updateField}
@@ -89,6 +117,18 @@ export default function ProductForm({
             rows={7}
             disabled={loading}
           />
+          <small
+            className={
+              descriptionCharacterCount > descriptionCharacterLimit
+                ? "admin-field-error"
+                : undefined
+            }
+          >
+            {descriptionCharacterCount}/{descriptionCharacterLimit} karakter
+          </small>
+          {descriptionError && (
+            <small className="admin-field-error">{descriptionError}</small>
+          )}
         </label>
 
         <label>
@@ -127,18 +167,22 @@ export default function ProductForm({
 
         <label>
           Şəkil
-          <span className="admin-file-box">
-            <ImageUp size={18} />
-            {image ? image.name : "Şəkil seç"}
-          </span>
-          <input
-            accept="image/*"
-            onChange={(event) => setImage(event.target.files?.[0] || null)}
-            required={!initialProduct}
-            type="file"
-            disabled={loading}
-          />
-          <small>Maksimum 3MB. JPG, PNG və WEBP faylları qəbul olunur.</small>
+          <div className="admin-image-actions">
+            <span className="admin-file-box">
+              <ImageUp size={18} />
+              Şəkil seç və ya çək
+              <input
+                accept="image/*"
+                capture="environment"
+                onChange={updateImage}
+                type="file"
+                disabled={loading}
+              />
+            </span>
+          </div>
+          {image && <small>Seçilən şəkil: {image.name}</small>}
+          {imageError && <small className="admin-field-error">{imageError}</small>}
+        
         </label>
 
         {initialProduct?.imageUrl && !image && (
@@ -149,7 +193,11 @@ export default function ProductForm({
           />
         )}
 
-        <button className="admin-primary" type="submit" disabled={loading}>
+        <button
+          className="admin-primary"
+          type="submit"
+          disabled={loading || descriptionCharacterCount > descriptionCharacterLimit}
+        >
           <Save size={18} />
           {loading ? "Gözləyin..." : submitLabel}
         </button>

@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: "",
       trim: true,
+      maxlength: [700, "Açıqlama maksimum 700 karakter ola bilər"],
     },
     price: {
       type: Number,

@@ -1,6 +1,7 @@
-import { KeyRound } from "lucide-react";
+import { KeyRound, LogOut, ShieldAlert } from "lucide-react";
 import { useState } from "react";
-import { changeAdminPassword } from "../api/adminApi";
+import { useNavigate } from "react-router-dom";
+import { changeAdminPassword, clearAdminToken } from "../api/adminApi";
 import AdminHeader from "../components/AdminHeader";
 
 const initialPasswordForm = {
@@ -10,10 +11,12 @@ const initialPasswordForm = {
 };
 
 export default function AdminSettings() {
+  const navigate = useNavigate();
   const [passwordForm, setPasswordForm] = useState(initialPasswordForm);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   function updatePasswordField(event) {
     setPasswordForm((current) => ({
@@ -48,8 +51,44 @@ export default function AdminSettings() {
     }
   }
 
+  function confirmLogout() {
+    clearAdminToken();
+    navigate("/admin/login", { replace: true });
+  }
+
   return (
     <>
+      {logoutModalOpen && (
+        <div className="admin-modal-backdrop" role="presentation">
+          <section
+            aria-labelledby="logout-title"
+            aria-modal="true"
+            className="admin-confirm-modal"
+            role="dialog"
+          >
+            <ShieldAlert />
+            <span>Təsdiq lazımdır</span>
+            <h2 id="logout-title">Paneldən çıxmaq istəyirsən?</h2>
+            <p>
+              Çıxış etdikdən sonra panelə yenidən daxil olmaq üçün istifadəçi adı
+              və şifrə lazım olacaq.
+            </p>
+            <div>
+              <button
+                className="admin-secondary"
+                onClick={() => setLogoutModalOpen(false)}
+                type="button"
+              >
+                Qal
+              </button>
+              <button className="admin-danger" onClick={confirmLogout} type="button">
+                Bəli, çıxış et
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+
       <AdminHeader
         eyebrow="Təhlükəsizlik"
         title="Ayarlar"
@@ -112,13 +151,26 @@ export default function AdminSettings() {
           </button>
         </form>
 
-        <article className="admin-empty">
-          <strong>Paylaşımlar saytda görünür</strong>
-          <p>
-            Əlavə etdiyin məhsul və postlar Ana səhifə, Kataloq və Media
-            bölmələrində avtomatik göstərilir.
-          </p>
-        </article>
+        <div className="admin-settings-side">
+          <article className="admin-empty">
+            <strong>Paylaşımlar saytda görünür</strong>
+            <p>
+              Əlavə etdiyin məhsul və postlar Ana səhifə, Kataloq və Media
+              bölmələrində avtomatik göstərilir.
+            </p>
+          </article>
+
+          <article className="admin-logout-card">
+            <LogOut />
+            <div>
+              <strong>Paneldən çıxış</strong>
+              <p>Hesabdan təhlükəsiz çıxmaq üçün təsdiq pəncərəsi açılacaq.</p>
+            </div>
+            <button onClick={() => setLogoutModalOpen(true)} type="button">
+              Çıxış et
+            </button>
+          </article>
+        </div>
       </section>
     </>
   );

@@ -682,12 +682,12 @@ header nav a.active:after {
   font: 700 24px var(--display);
   margin: 8px 0 4px;
   display: -webkit-box;
-  min-height: 54px;
+  min-height: 82px;
   overflow: hidden;
   overflow-wrap: anywhere;
   word-break: break-word;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
 }
 .product-info p {
   color: var(--muted);
@@ -1473,6 +1473,7 @@ footer {
   }
   .product-info h3 {
     font-size: 19px;
+    min-height: 64px;
   }
   .product-info p {
     font-size: 9px;

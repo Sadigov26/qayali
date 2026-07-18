@@ -60,6 +60,16 @@ function productPayload(body, image = {}) {
   };
 }
 
+function validateProductBody(body) {
+  const description = String(body.description || "");
+
+  if (description.length > 700) {
+    return "Açıqlama maksimum 700 karakter ola bilər";
+  }
+
+  return "";
+}
+
 router.get("/", async (request, response) => {
   const { page, limit, skip } = parsePagination(request.query);
   const filter = productFilter(request.query);
@@ -153,6 +163,12 @@ router.post(
       return response.status(400).json({ message: "Şəkil əlavə edin" });
     }
 
+    const validationError = validateProductBody(request.body);
+
+    if (validationError) {
+      return response.status(400).json({ message: validationError });
+    }
+
     const image = await uploadProductImageToCloudinary(request.file);
     const product = await Product.create(productPayload(request.body, image));
 
@@ -169,6 +185,12 @@ router.put(
 
     if (!product) {
       return response.status(404).json({ message: "Məhsul tapılmadı" });
+    }
+
+    const validationError = validateProductBody(request.body);
+
+    if (validationError) {
+      return response.status(400).json({ message: validationError });
     }
 
     const oldPublicId = product.imagePublicId;

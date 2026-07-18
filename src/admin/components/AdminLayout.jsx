@@ -1,6 +1,5 @@
-import { LogOut, Package, PlusCircle, Settings, ShieldCheck } from "lucide-react";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { clearAdminToken } from "../api/adminApi";
+import { Package, PlusCircle, Settings, ShieldCheck } from "lucide-react";
+import { NavLink, Outlet } from "react-router-dom";
 import "../styles/Admin.css";
 
 const adminLinks = [
@@ -11,13 +10,6 @@ const adminLinks = [
 ];
 
 export default function AdminLayout() {
-  const navigate = useNavigate();
-
-  function logout() {
-    clearAdminToken();
-    navigate("/admin/login", { replace: true });
-  }
-
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
@@ -37,11 +29,6 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-
-        <button className="admin-logout" onClick={logout} type="button">
-          <LogOut size={18} />
-          Çıxış
-        </button>
       </aside>
 
       <main className="admin-main">

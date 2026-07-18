@@ -50,8 +50,7 @@
   gap: 8px;
 }
 
-.admin-nav a,
-.admin-logout {
+.admin-nav a {
   min-height: 46px;
   display: flex;
   align-items: center;
@@ -66,18 +65,10 @@
 }
 
 .admin-nav a.active,
-.admin-nav a:hover,
-.admin-logout:hover {
+.admin-nav a:hover {
   color: #fff;
   border-color: #33363d;
   background: #17191f;
-}
-
-.admin-logout {
-  width: calc(100% - 48px);
-  position: absolute;
-  left: 24px;
-  bottom: 24px;
 }
 
 .admin-main {
@@ -230,6 +221,11 @@
   font-weight: 600;
 }
 
+.admin-image-actions {
+  display: grid;
+  gap: 10px;
+}
+
 .admin-file-box {
   min-height: 54px;
   display: flex;
@@ -244,6 +240,7 @@
   font-weight: 800;
   text-transform: none;
   overflow-wrap: anywhere;
+  cursor: pointer;
 }
 
 .admin-file-box svg {
@@ -253,6 +250,10 @@
 
 .admin-form input[type="file"] {
   display: none;
+}
+
+.admin-field-error {
+  color: #ffb7b7 !important;
 }
 
 .admin-form-title {
@@ -277,6 +278,109 @@
   grid-template-columns: minmax(0, 720px) minmax(260px, 1fr);
   gap: 18px;
   align-items: start;
+}
+
+.admin-settings-side {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-logout-card {
+  display: grid;
+  gap: 14px;
+  background:
+    radial-gradient(circle at 85% 10%, rgba(255, 239, 5, 0.1), transparent 42%),
+    #15171d;
+  border: 1px solid #2d3038;
+  padding: 28px;
+}
+
+.admin-logout-card > svg {
+  color: #ffef05;
+}
+
+.admin-logout-card strong {
+  display: block;
+  font-size: 20px;
+}
+
+.admin-logout-card p {
+  color: #a4a9b4;
+  line-height: 1.7;
+}
+
+.admin-logout-card button,
+.admin-danger {
+  min-height: 46px;
+  border: 1px solid #653131;
+  background: #351818;
+  color: #ffb7b7;
+  padding: 0 18px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.admin-logout-card button:hover,
+.admin-danger:hover {
+  border-color: #ff5b5b;
+  color: #fff;
+}
+
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(5, 6, 8, 0.78);
+  backdrop-filter: blur(12px);
+}
+
+.admin-confirm-modal {
+  width: min(440px, 100%);
+  display: grid;
+  gap: 14px;
+  border: 1px solid #343740;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 239, 5, 0.16), transparent 40%),
+    #15171d;
+  padding: 30px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+}
+
+.admin-confirm-modal > svg {
+  color: #ffef05;
+}
+
+.admin-confirm-modal > span {
+  color: #ffef05;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.admin-confirm-modal h2 {
+  margin: 0;
+  font-size: clamp(30px, 6vw, 44px);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.admin-confirm-modal p {
+  color: #a4a9b4;
+  line-height: 1.7;
+}
+
+.admin-confirm-modal div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-confirm-modal .admin-secondary {
+  margin-top: 0;
 }
 
 .admin-toolbar {
@@ -703,23 +807,6 @@
     background: #ffef05;
   }
 
-  .admin-logout {
-    width: auto;
-    min-height: 40px;
-    position: fixed;
-    right: 16px;
-    top: 14px;
-    left: auto;
-    bottom: auto;
-    z-index: 85;
-    border-color: #343740;
-    border-radius: 999px;
-    background: rgba(16, 17, 22, 0.86);
-    padding: 0 13px;
-    font-size: 11px;
-    backdrop-filter: blur(12px);
-  }
-
   .admin-main {
     width: min(100% - 28px, 1180px);
     padding: 64px 0 112px;
@@ -775,5 +862,9 @@
 
   .admin-toolbar {
     display: grid;
+  }
+
+  .admin-image-actions {
+    grid-template-columns: 1fr;
   }
 }

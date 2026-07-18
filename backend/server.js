@@ -8,15 +8,34 @@ import productRoutes from "./routes/productRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+function normalizeOrigin(origin = "") {
+  return origin.trim().replace(/\/+$/, "");
+}
+
 const allowedOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
-  .map((origin) => origin.trim())
+  .map(normalizeOrigin)
   .filter(Boolean);
+
+function isAllowedOrigin(origin) {
+  if (!origin) {
+    return true;
+  }
+
+  const normalizedOrigin = normalizeOrigin(origin);
+
+  return (
+    allowedOrigins.length === 0 ||
+    allowedOrigins.includes(normalizedOrigin) ||
+    normalizedOrigin.endsWith(".vercel.app")
+  );
+}
 
 app.use(
   cors({
     origin(origin, callback) {
-      if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         return callback(null, true);
       }
 

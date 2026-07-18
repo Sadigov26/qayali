@@ -49,7 +49,6 @@ app.use((error, _request, response, _next) => {
 await connectDB();
 
 app.listen(port, () => {
-  console.log(`Qayalı Sport admin API http://localhost:${port}`);
 });
 
 process.on("SIGINT", async () => {
